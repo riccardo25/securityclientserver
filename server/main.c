@@ -48,8 +48,9 @@ int main(){
     strcpy(buffer,"Hello World\n");
     send(newSocket,buffer,13,0);
     i++;
+    close(newSocket);
   }
-  
+  close(welcomeSocket);
 
   return 0;
 }

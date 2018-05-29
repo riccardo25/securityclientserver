@@ -35,5 +35,7 @@ int main(){
   /*---- Print the received message ----*/
   printf("Data received: %s",buffer);   
 
+  close(clientSocket);
+
   return 0;
 }
