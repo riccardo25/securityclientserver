@@ -26,8 +26,13 @@ int main(){
   /* Set all bits of the padding field to 0 */
   memset(serverAddr.sin_zero, '\0', sizeof serverAddr.sin_zero);  
 
+  int opt_val = 1;
+  setsockopt(welcomeSocket, SOL_SOCKET, SO_REUSEADDR, &opt_val, sizeof opt_val);
+
   /*---- Bind the address struct to the socket ----*/
-  bind(welcomeSocket, (struct sockaddr *) &serverAddr, sizeof(serverAddr));
+  int err = bind(welcomeSocket, (struct sockaddr *) &serverAddr, sizeof(serverAddr));
+  
+  if (err < 0) fprintf(stderr, "Could not bind socket\n");
 
   fprintf(stderr, "Passato\n");
   /*---- Listen on the socket, with 5 max connection requests queued ----*/
