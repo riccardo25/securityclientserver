@@ -50,8 +50,10 @@ int main(){
     newSocket = accept(welcomeSocket, (struct sockaddr *) &serverStorage, &addr_size);
 
     /*---- Send message to the socket of the incoming connection ----*/
-    strcpy(buffer,"Hello World\n");
-    send(newSocket,buffer,13,0);
+    char command[50];
+    fgets(command, 50, stdin);
+    fprintf(stderr, "%d\n", strlen(command));
+    send(newSocket, command, strlen(command), 0);
     i++;
     close(newSocket);
   }

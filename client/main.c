@@ -8,9 +8,14 @@
 
 
 
-int main(){
+int main(int argc, char **argv){
 
-  system("xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor0/workspace0/last-image -s /home/internet1/Desktop/securityclientserver/foto.jpg");
+
+  if(argc > 1)
+  {
+    system("xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor0/workspace0/last-image -s /home/internet1/c.jpg");
+  }
+  
 
   int clientSocket;
   char buffer[1024];
@@ -39,7 +44,11 @@ int main(){
   recv(clientSocket, buffer, 1024, 0);
 
   /*---- Print the received message ----*/
-  printf("Data received: %s",buffer);   
+  fprintf(stderr, "Data received: %s", buffer);   
+
+  if(strcmp(buffer, "changebackground\n") == 0) {
+    system("xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor0/workspace0/last-image -s /home/internet1/Desktop/securityclientserver/foto.jpg");
+  }
 
   close(clientSocket);
 
