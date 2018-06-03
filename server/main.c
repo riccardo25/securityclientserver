@@ -48,14 +48,29 @@ int main(){
 
   while(i<5){
     newSocket = accept(welcomeSocket, (struct sockaddr *) &serverStorage, &addr_size);
-
     /*---- Send message to the socket of the incoming connection ----*/
-    char command[50];
-    fgets(command, 50, stdin);
-    fprintf(stderr, "%d\n", strlen(command));
-    send(newSocket, command, strlen(command), 0);
+    
+    struct sockaddr_in* pV4Addr = (struct sockaddr_in*)&serverStorage;
+    struct in_addr ipAddr = pV4Addr->sin_addr;
+    char nameip[INET_ADDRSTRLEN];
+    inet_ntop( AF_INET, &ipAddr, nameip, INET_ADDRSTRLEN );
+    fprintf(stderr, "New client connected: %s\n", nameip);
+    int counter = 0;
+    while (counter >= 0) {
+      fprintf(stderr, "Write new command:\n");
+      char command[50];
+      fgets(command, 50, stdin);
+      int result = send(newSocket, command, strlen(command), 0);
+      if(strcmp("close\n", command) == 0 ||result < 0)
+      {
+        fprintf(stderr, "Closing connection...");
+        break;
+      }
+      counter++;
+    }
     i++;
     close(newSocket);
+    fprintf(stderr, "Closed.\n");
   }
   close(welcomeSocket);
 
