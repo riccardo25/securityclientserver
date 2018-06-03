@@ -54,6 +54,7 @@ int main(int argc, char **argv){
       fprintf(stderr, "Closing connection");
       break;
     }
+    counter++;
   }
   close(clientSocket);
 
