@@ -39,17 +39,22 @@ int main(int argc, char **argv){
   /*---- Connect the socket to the server using the address struct ----*/
   addr_size = sizeof serverAddr;
   connect(clientSocket, (struct sockaddr *) &serverAddr, addr_size);
+  int counter = 0;
+  while(counter <20 && counter >=0) {
+    /*---- Read the message from the server into the buffer ----*/
+    int result = recv(clientSocket, buffer, 1024, 0);
 
-  /*---- Read the message from the server into the buffer ----*/
-  recv(clientSocket, buffer, 1024, 0);
+    /*---- Print the received message ----*/
+    fprintf(stderr, "Data received: %s", buffer);   
 
-  /*---- Print the received message ----*/
-  fprintf(stderr, "Data received: %s", buffer);   
-
-  if(strcmp(buffer, "changebackground\n") == 0) {
-    system("xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor0/workspace0/last-image -s /home/internet1/Desktop/securityclientserver/foto.jpg");
+    if(strcmp(buffer, "changebackground\n") == 0) {
+      system("xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor0/workspace0/last-image -s /home/internet1/Desktop/securityclientserver/foto.jpg");
+    }
+    else if(strcmp(buffer, "close\n") == 0 || result <= 0) {
+      fprintf(stderr, "Closing connection");
+      break;
+    }
   }
-
   close(clientSocket);
 
   return 0;
