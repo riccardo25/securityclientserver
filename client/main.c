@@ -5,7 +5,13 @@
 #include <netinet/in.h>
 #include <string.h>
 
+
+
+
 int main(){
+
+  system("xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor0/workspace0/last-image -s /home/internet1/Desktop/securityclientserver/foto.jpg");
+
   int clientSocket;
   char buffer[1024];
   struct sockaddr_in serverAddr;
