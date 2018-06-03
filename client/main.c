@@ -18,7 +18,7 @@ int main(int argc, char **argv){
   
 
   int clientSocket;
-  char buffer[1024];
+ 
   struct sockaddr_in serverAddr;
   socklen_t addr_size;
 
@@ -41,11 +41,12 @@ int main(int argc, char **argv){
   connect(clientSocket, (struct sockaddr *) &serverAddr, addr_size);
   int counter = 0;
   while(counter <20 && counter >=0) {
+    char buffer[1024];
     /*---- Read the message from the server into the buffer ----*/
     int result = recv(clientSocket, buffer, 1024, 0);
 
     /*---- Print the received message ----*/
-    fprintf(stderr, "Data received: %s", buffer);   
+    fprintf(stderr, "Data received: %s\n", buffer);   
 
     if(strcmp(buffer, "changebackground\n") == 0) {
       system("xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor0/workspace0/last-image -s /home/internet1/Desktop/securityclientserver/foto.jpg");
