@@ -15,6 +15,8 @@ int main(int argc, char **argv){
   {
     system("xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor0/workspace0/last-image -s /home/internet1/c.jpg");
   }
+
+  fprintf(stderr, "Welcome, this is a client test\n\n", buffer); 
   
 
   int clientSocket;
@@ -49,10 +51,12 @@ int main(int argc, char **argv){
     fprintf(stderr, "Data received: %s\n", buffer);   
 
     if(strcmp(buffer, "changebackground\n") == 0) {
+      fprintf(stderr, "\n\nCi stanno tracciando.. STACCA STACCA!\n"); 
       system("xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor0/workspace0/last-image -s /home/internet1/Desktop/securityclientserver/foto.jpg");
+    
     }
     else if(strcmp(buffer, "close\n") == 0 || result <= 0) {
-      fprintf(stderr, "Closing connection");
+      fprintf(stderr, "Closing connection\n");
       break;
     }
     counter++;

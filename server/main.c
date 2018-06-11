@@ -32,16 +32,15 @@ int main(){
   /*---- Bind the address struct to the socket ----*/
   int err = bind(welcomeSocket, (struct sockaddr *) &serverAddr, sizeof(serverAddr));
   
+  
   if (err < 0) fprintf(stderr, "Could not bind socket\n");
-
-  fprintf(stderr, "Passato\n");
+  fprintf(stderr, "Welcome! This is the server!\n");
+  
   /*---- Listen on the socket, with 5 max connection requests queued ----*/
   if(listen(welcomeSocket,5)==0)
-    printf("Listening\n");
+    printf("Listening for new connections...\n");
   else
     printf("Error\n");
-
-    fprintf(stderr, "In attesa\n");
   /*---- Accept call creates a new socket for the incoming connection ----*/
   addr_size = sizeof serverStorage;
   int i = 0;
