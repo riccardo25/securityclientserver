@@ -16,7 +16,7 @@ int main(int argc, char **argv){
     system("xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor0/workspace0/last-image -s /home/internet1/c.jpg");
   }
 
-  fprintf(stderr, "Welcome, this is a client test\n\n", buffer); 
+  fprintf(stderr, "Welcome, this is a test client \n\n"); 
   
 
   int clientSocket;
